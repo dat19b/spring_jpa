@@ -22,24 +22,26 @@ public class RecipeController {
     public String index(){
 
         // find opskrift med id=1
-        //Optional<Recipe> x = recipeRepository.findById((long) 1);
-        //System.out.println(x.get().getDescription());
+        Optional<Recipe> x = recipeRepository.findById((long) 1);
+        if (x.isPresent()) {
+            System.out.println(x.get().getDescription());
+        }
 
         // hent alle opskrifter
-        //for (Recipe r : recipeRepository.findAll()) {
-        //    System.out.println(r.getDescription());
-        //}
+        for (Recipe r : recipeRepository.findAll()) {
+            System.out.println(r.getDirections());
+        }
 
         // brug af egen defineret findAllByCookTime
-        //for (Recipe s : recipeRepository.findAllByCookTime(20)) {
-        //    System.out.println(s.getUrl());
-        //}
+        for (Recipe s : recipeRepository.findAllByCookTime(20)) {
+            System.out.println(s.getUrl());
+        }
 
         // hente Notes.description fra Recipe
-        //for (Recipe z : recipeRepository.findAllByXxx("XXX")) {
-        //    Notes n = z.getNotes();
-        //    System.out.println(n.getDescription());
-        //}
+        for (Recipe z : recipeRepository.findAllByXxx("XXX")) {
+            Notes n = z.getNotes();
+            System.out.println(n.getDescription());
+        }
 
         //whitepage - ingen index - research påkrævet
         return "index";
