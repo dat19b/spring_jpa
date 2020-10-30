@@ -1,6 +1,7 @@
 package dk.clbo.controller;
 
 import dk.clbo.model.Recipe;
+import dk.clbo.model.Notes;
 import dk.clbo.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,30 +13,36 @@ import java.util.Optional;
 public class RecipeController {
 
     RecipeRepository recipeRepository;
-
+    // constructor injection
     public RecipeController(RecipeRepository recipeRepository ){
         this.recipeRepository = recipeRepository;
     }
+
     @GetMapping("/")
     public String index(){
 
-        Optional<Recipe> x = recipeRepository.findById((long) 1);
-        System.out.println(x.get().getDescription());
+        // find opskrift med id=1
+        //Optional<Recipe> x = recipeRepository.findById((long) 1);
+        //System.out.println(x.get().getDescription());
 
-        for (Recipe r : recipeRepository.findAll()) {
-            System.out.println(r.getDescription());
-        }
+        // hent alle opskrifter
+        //for (Recipe r : recipeRepository.findAll()) {
+        //    System.out.println(r.getDescription());
+        //}
 
-        Optional<Recipe> y = recipeRepository.findByCookTime(20);
-        System.out.println(y.get().getDescription());
+        // brug af egen defineret findAllByCookTime
+        //for (Recipe s : recipeRepository.findAllByCookTime(20)) {
+        //    System.out.println(s.getUrl());
+        //}
 
-        Optional<Recipe> c = recipeRepository.findByXxx("XXX");
+        // hente Notes.description fra Recipe
+        //for (Recipe z : recipeRepository.findAllByXxx("XXX")) {
+        //    Notes n = z.getNotes();
+        //    System.out.println(n.getDescription());
+        //}
 
-        System.out.println(c.get().getXxx());
-
+        //whitepage - ingen index - research påkrævet
         return "index";
     }
-
-
 
 }
