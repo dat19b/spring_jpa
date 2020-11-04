@@ -12,3 +12,14 @@ INSERT INTO notes (description, recipe_id) VALUES ('This should be done by all p
 UPDATE recipe SET notes_id = 1 WHERE id = 1;
 INSERT INTO notes (description, recipe_id) VALUES ('Good for breakfast', 2);
 UPDATE recipe SET notes_id = 2 WHERE id = 2;
+
+INSERT INTO category_recipes (categories_id, recipes_id) values (1, 1);
+INSERT INTO category_recipes (categories_id, recipes_id) values (4, 1);
+INSERT INTO category_recipes (categories_id, recipes_id) values (3, 2);
+
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('milk', '2.0', 1);
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('oatflakes', '1.0', 1);
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('milk', '1.0', 2);
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('water', '2.0', 2);
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('flour', '0.500', 2);
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('yeast', '0.025', 2);
