@@ -2,16 +2,22 @@ package dk.clbo.model;
 
 import javax.persistence.*;
 
+// entitetsklasse i jpa - tabel kan specificeres
 @Entity
+@Table(name = "notes")
 public class Notes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	// kolonnenavn kan specificeres
+    @Column(name="description")
 	private String description;
 
-	@OneToOne
+    //FetchType Lazy og Eager - hente ved tilgang til eller straks
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "recipe_id", nullable = false)
 	private Recipe recipe;
 
 	public Long getId() {

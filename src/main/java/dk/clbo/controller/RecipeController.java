@@ -3,9 +3,10 @@ package dk.clbo.controller;
 import dk.clbo.model.Ingredient;
 import dk.clbo.model.Recipe;
 import dk.clbo.model.Notes;
-import dk.clbo.repository.RecipeRepository;
+import dk.clbo.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
@@ -13,47 +14,51 @@ import java.util.Optional;
 @Controller
 public class RecipeController {
 
-    RecipeRepository recipeRepository;
+    RecipeService recipeService;
     // constructor injection
-    public RecipeController(RecipeRepository recipeRepository ){
-        this.recipeRepository = recipeRepository;
+    public RecipeController(RecipeService recipeService ){
+        this.recipeService = recipeService;
     }
 
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
 
+        // find opskrifter og put dem i view modellen
+        model.addAttribute("recipes", recipeService.findAll());
+
+        /*
         // find opskrift med id=1
-        Optional<Recipe> x = recipeRepository.findById((long) 1);
-        if (x.isPresent()) {
-            System.out.println(x.get().getDescription());
-        }
+
+        Recipe x = recipeService.findById((long) 1);
+        System.out.println(x.getDescription());
 
         // hent alle opskrifter
-        for (Recipe r : recipeRepository.findAll()) {
+        System.out.println("opskrifter - directions");
+        for (Recipe r : recipeService.findAll()) {
             System.out.println(r.getDirections());
         }
 
-        // brug af egen defineret findAllByCookTime
-        for (Recipe s : recipeRepository.findAllByCookTime(20)) {
+        // brug af egen defineret findAllByCookTime - skal laves i service
+        for (Recipe s : recipeService.findAllByCookTime(20)) {
             System.out.println(s.getUrl());
         }
 
-        // hente Notes.description fra Recipe
-        for (Recipe z : recipeRepository.findAllByXxx("XXX")) {
+        // hente Notes.description fra Recipe - skal laves i service
+        for (Recipe z : recipeService.findAllByXxx("XXX")) {
             Notes n = z.getNotes();
             System.out.println(n.getDescription());
         }
 
         // hente opskrifter og ingredienser
-        Optional<Recipe> grd = recipeRepository.findById((long) 1);
-        if (grd.isPresent()){
-            Recipe r = grd.get();
-            // udskriv ingredienser
-            for (Ingredient i : r.getIngredients()){
-                System.out.println(i.getDescription());
-            }
+        System.out.println("opskrift med ingedienser");
+        Recipe grd = recipeService.findById(1L);
+        System.out.println(grd.getDescription());
+        // udskriv ingredienser
+        for (Ingredient i : grd.getIngredients()){
+            System.out.println(i.getDescription());
         }
-        //whitepage - ingen index - research påkrævet
+        */
+
         return "index";
     }
 

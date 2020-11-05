@@ -31,7 +31,7 @@ public class Recipe {
     @OneToOne
     private Notes notes;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
 
     @ManyToMany(mappedBy = "recipes")
