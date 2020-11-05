@@ -15,6 +15,7 @@
             <th scope="col">Opskrift</th>
             <th scope="col">Kilde</th>
             <th scope="col">Fremgangsmåde</th>
+            <th scope="col">Noter</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td th:text="${recipe.description}">kage</td>
             <td th:text="${recipe.source}">Jimmy</td>
             <td th:text="${recipe.directions}">drik en kop te</td>
+            <td th:text="${recipe.notes.description}">nyttige noter</td>
             <td><a class="btn btn-warning" th:href="@{'/update/' + ${recipe.id}}">Opdater</a></td>
 
             <td><a class="btn btn-danger" th:href="@{'/delete/' + ${recipe.id}}">Slet</a></td>
