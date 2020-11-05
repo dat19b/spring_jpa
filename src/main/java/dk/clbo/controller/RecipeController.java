@@ -1,5 +1,6 @@
 package dk.clbo.controller;
 
+import dk.clbo.model.Ingredient;
 import dk.clbo.model.Recipe;
 import dk.clbo.model.Notes;
 import dk.clbo.repository.RecipeRepository;
@@ -43,6 +44,15 @@ public class RecipeController {
             System.out.println(n.getDescription());
         }
 
+        // hente opskrifter og ingredienser
+        Optional<Recipe> grd = recipeRepository.findById((long) 1);
+        if (grd.isPresent()){
+            Recipe r = grd.get();
+            // udskriv ingredienser
+            for (Ingredient i : r.getIngredients()){
+                System.out.println(i.getDescription());
+            }
+        }
         //whitepage - ingen index - research påkrævet
         return "index";
     }
