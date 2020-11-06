@@ -20,7 +20,7 @@ public class RecipeService {
         //hvis der ikke findes et product på id, kastes der en fejl
         if (!recipeOptional.isPresent())
         {
-            throw new RuntimeException("Product not found");
+            throw new RuntimeException("Recipe not found");
         }
         //returner product vha. .get()
         return recipeOptional.get();
