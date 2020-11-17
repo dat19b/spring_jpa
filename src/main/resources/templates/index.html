@@ -16,6 +16,7 @@
             <th scope="col">Kilde</th>
             <th scope="col">Fremgangsmåde</th>
             <th scope="col">Noter</th>
+            <th scope="col">Kategorier</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -26,6 +27,11 @@
             <td th:text="${recipe.source}">Jimmy</td>
             <td th:text="${recipe.directions}">drik en kop te</td>
             <td th:text="${recipe.notes.description}">nyttige noter</td>
+            <td>
+                <p th:each="category : ${recipe.categories}">
+                    <span th:text="${category.description}">min kategori</span>
+                </p>
+            </td>
             <td><a class="btn btn-warning" th:href="@{'/update/' + ${recipe.id}}">Opdater</a></td>
 
             <td><a class="btn btn-danger" th:href="@{'/delete/' + ${recipe.id}}">Slet</a></td>
