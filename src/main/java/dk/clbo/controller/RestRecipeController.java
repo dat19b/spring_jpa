@@ -2,7 +2,6 @@ package dk.clbo.controller;
 
 import dk.clbo.model.Recipe;
 import dk.clbo.repository.RecipeRepository;
-import dk.clbo.service.RecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

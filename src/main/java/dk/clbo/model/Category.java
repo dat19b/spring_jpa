@@ -12,6 +12,6 @@ public class Category {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     Set<Recipe> recipes;
 }

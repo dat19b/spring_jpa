@@ -1,7 +1,7 @@
 package dk.clbo.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
+
 import java.util.Set;
 
 @Entity
@@ -28,7 +28,7 @@ public class Recipe {
         this.xxx = xxx;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")

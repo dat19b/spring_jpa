@@ -1,5 +1,7 @@
 package dk.clbo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -13,8 +15,10 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name="recipe_id", nullable = false)
+    //for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonIgore
+    @JsonIgnore
     private Recipe recipe;
 
     public Long getId() {

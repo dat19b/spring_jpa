@@ -1,5 +1,7 @@
 package dk.clbo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 // entitetsklasse i jpa - tabel kan specificeres
@@ -18,6 +20,8 @@ public class Notes {
     //FetchType Lazy og Eager - hente ved tilgang til eller straks
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recipe_id", nullable = false)
+	//for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonIgore
+	@JsonIgnore
 	private Recipe recipe;
 
 	public Long getId() {
