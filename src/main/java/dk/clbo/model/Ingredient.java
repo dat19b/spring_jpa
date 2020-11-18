@@ -1,11 +1,16 @@
 package dk.clbo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 public class Ingredient {
 
@@ -18,7 +23,7 @@ public class Ingredient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")
-    //for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonIgore
+    //for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonBackReference
     @JsonBackReference
     private Recipe recipe;
 

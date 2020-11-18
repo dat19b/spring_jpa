@@ -1,11 +1,16 @@
 package dk.clbo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 // entitetsklasse i jpa - tabel kan specificeres
+@JsonIdentityInfo(
+		generator = ObjectIdGenerators.PropertyGenerator.class,
+		property = "id")
 @Entity
 @Table(name = "notes")
 public class Notes {
@@ -15,13 +20,14 @@ public class Notes {
 	private Long id;
 
 	// kolonnenavn kan specificeres
-    @Column(name="description")
+    @Column( name="description" )
 	private String description;
 
     //FetchType Lazy og Eager - hente ved tilgang til eller straks
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
-	//for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonIgore
+
+	//for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonBackReference
 	@JsonBackReference
 	private Recipe recipe;
 

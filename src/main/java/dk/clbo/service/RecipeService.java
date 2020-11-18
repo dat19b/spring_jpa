@@ -45,6 +45,9 @@ public class RecipeService {
     // ved update skal id være sat
     public void update(Recipe recipe) { recipeRepository.save(recipe); }
 
-    public void delete(Long id) { recipeRepository.deleteById(id); }
+    public void delete(Long id) {
+        //bør tilføjes rutine til sletning af referencer fra categories til recipe
+        recipeRepository.deleteById(id);
+    }
 
 }

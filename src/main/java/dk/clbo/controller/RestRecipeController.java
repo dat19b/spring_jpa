@@ -39,14 +39,14 @@ public class RestRecipeController {
     // HTTP Post, ie. create
     @CrossOrigin(origins = "*", exposedHeaders = "Location")
     @PostMapping("/recipe")
-    public ResponseEntity<String> create(@ModelAttribute Recipe r){
+    public ResponseEntity<String> create(@RequestBody Recipe r){
         Recipe recipe = recipeRepository.save(r);
         return ResponseEntity.status(201).header("Location", "/post/" + recipe.getId()).body("{'Msg': 'post created'}");
     }
 
     // HTTP PUT, ie. update
     @PutMapping("/recipe")
-    public ResponseEntity<String> update(@ModelAttribute Recipe r){
+    public ResponseEntity<String> update(@RequestBody Recipe r){
         recipeRepository.save(r);
         return ResponseEntity.status(204).body("{'msg':'Updated'}");
     }
@@ -55,16 +55,26 @@ public class RestRecipeController {
     @DeleteMapping("/recipe/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         Optional<Recipe> recipe = recipeRepository.findById(id);
+        //check at opskriften findes
         if(!recipe.isPresent()){
             return ResponseEntity.status(404).body("{'msg':'Not found'"); // Not found
         }
+
         Recipe r = recipe.get();
+        //slet først referencerne til recipe i categories
         for (Category c: r.getCategories()){
             c.getRecipes().remove(r);
         }
+
+        //derefter kan categories slettes fra recipe
         r.setCategories(null);
+
+        //og opdateres (nu uden category mappings)
         recipeRepository.save(r);
+
+        //til sidst kan recipe slettes uden at bryde referentiel integritet
         recipeRepository.deleteById(id);
+
         return ResponseEntity.status(200).body("{'msg':'Deleted'}");
     }
 }

@@ -1,11 +1,15 @@
 package dk.clbo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 public class Category {
 
@@ -15,7 +19,8 @@ public class Category {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany( fetch = FetchType.LAZY )
+    //envejs reference i JSON for at undgå uendeligt loop - ignoreres
     @JsonBackReference
     Set<Recipe> recipes;
 
