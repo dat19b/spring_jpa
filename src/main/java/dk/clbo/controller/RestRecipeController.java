@@ -1,5 +1,6 @@
 package dk.clbo.controller;
 
+import dk.clbo.model.Category;
 import dk.clbo.model.Recipe;
 import dk.clbo.repository.RecipeRepository;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,16 @@ public class RestRecipeController {
     // HTTPDelete
     @DeleteMapping("/recipe/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        if(!recipe.isPresent()){
+            return ResponseEntity.status(404).body("{'msg':'Not found'"); // Not found
+        }
+        Recipe r = recipe.get();
+        for (Category c: r.getCategories()){
+            c.getRecipes().remove(r);
+        }
+        r.setCategories(null);
+        recipeRepository.save(r);
         recipeRepository.deleteById(id);
         return ResponseEntity.status(200).body("{'msg':'Deleted'}");
     }

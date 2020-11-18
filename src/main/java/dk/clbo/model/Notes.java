@@ -1,5 +1,6 @@
 package dk.clbo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,10 +19,10 @@ public class Notes {
 	private String description;
 
     //FetchType Lazy og Eager - hente ved tilgang til eller straks
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "recipe_id", nullable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id")
 	//for at undgå uendeligt loop, ignoreres parent property i childbojekt med JsonIgore
-	@JsonIgnore
+	@JsonBackReference
 	private Recipe recipe;
 
 	public Long getId() {

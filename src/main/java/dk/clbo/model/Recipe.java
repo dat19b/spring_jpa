@@ -1,5 +1,7 @@
 package dk.clbo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import java.util.Set;
@@ -28,12 +30,15 @@ public class Recipe {
         this.xxx = xxx;
     }
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Notes notes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = false )
     private Set<Ingredient> ingredients;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "recipes")
     private Set<Category> categories;
 
