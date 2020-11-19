@@ -8,9 +8,10 @@ import javax.persistence.*;
 
 import java.util.Set;
 
+/* mapping fra request skal have id genereret - kan gøres med annotation
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+        property = "id")*/
 @Entity
 public class Recipe {
 

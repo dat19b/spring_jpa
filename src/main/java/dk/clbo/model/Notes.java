@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 
 // entitetsklasse i jpa - tabel kan specificeres
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+
 @Entity
 @Table(name = "notes")
 public class Notes {
