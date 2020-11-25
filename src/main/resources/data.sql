@@ -1,4 +1,4 @@
-INSERT INTO category (description) VALUES ('Morgenmad');
+/*INSERT INTO category (description) VALUES ('Morgenmad');
 INSERT INTO category (description) VALUES ('Italian');
 INSERT INTO category (description) VALUES ('Mexican');
 INSERT INTO category (description) VALUES ('Fast Food');
@@ -24,4 +24,4 @@ INSERT INTO ingredient (description, amount, recipe_id) VALUES ('milk', '1.0', 2
 INSERT INTO ingredient (description, amount, recipe_id) VALUES ('water', '2.0', 2);
 INSERT INTO ingredient (description, amount, recipe_id) VALUES ('flour', '0.500', 2);
 INSERT INTO ingredient (description, amount, recipe_id) VALUES ('yeast', '0.025', 2);
-INSERT INTO ingredient (description, amount, recipe_id) VALUES ('salt', '1.0', 2);
+INSERT INTO ingredient (description, amount, recipe_id) VALUES ('salt', '1.0', 2);*/
