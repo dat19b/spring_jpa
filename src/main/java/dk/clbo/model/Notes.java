@@ -29,6 +29,14 @@ public class Notes {
 	@JsonBackReference
 	private Recipe recipe;
 
+	public Notes() {
+	}
+
+	public Notes(String description, Recipe recipe) {
+		this.description = description;
+		this.recipe = recipe;
+	}
+
 	public Long getId() {
 		return id;
 	}

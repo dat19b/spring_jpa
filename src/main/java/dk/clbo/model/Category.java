@@ -2,6 +2,7 @@ package dk.clbo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -19,8 +20,15 @@ public class Category {
 
     @ManyToMany( fetch = FetchType.LAZY )
     //envejs reference i JSON for at undgå uendeligt loop - ignoreres
-    @JsonBackReference
+    @JsonIgnore
     Set<Recipe> recipes;
+
+    public Category() {
+    }
+
+    public Category(String description) {
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

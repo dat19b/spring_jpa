@@ -1,6 +1,7 @@
 package dk.clbo.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -41,12 +42,28 @@ public class Recipe {
     private Notes notes;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = false )
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true )
     private Set<Ingredient> ingredients;
 
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "recipes")
+    @ManyToMany(mappedBy = "recipes", cascade = CascadeType.MERGE)
+    @JsonIgnore //ManagedReference virker kun med OneToMany/OneToOne
     private Set<Category> categories;
+
+    public Recipe(){}
+
+    public Recipe(String description, Integer prepTime, Integer cookTime, Integer servings, String source, String url, String directions, String xxx) {
+        this.description = description;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.source = source;
+        this.url = url;
+        this.directions = directions;
+        this.xxx = xxx;
+        this.notes = notes;
+        this.ingredients = ingredients;
+        this.categories = categories;
+    }
 
     public Long getId() {
         return id;

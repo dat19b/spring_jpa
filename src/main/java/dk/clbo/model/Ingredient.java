@@ -25,6 +25,14 @@ public class Ingredient {
     @JsonBackReference
     private Recipe recipe;
 
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount) {
+        this.description = description;
+        this.amount = amount;
+    }
+
     public Long getId() {
         return id;
     }

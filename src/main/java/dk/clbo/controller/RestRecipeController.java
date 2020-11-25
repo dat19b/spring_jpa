@@ -1,20 +1,37 @@
 package dk.clbo.controller;
 
+import com.sun.tools.javap.TypeAnnotationWriter;
 import dk.clbo.model.Category;
+import dk.clbo.model.Ingredient;
+import dk.clbo.model.Notes;
 import dk.clbo.model.Recipe;
+import dk.clbo.repository.CategoryRepository;
+import dk.clbo.repository.IngredientRepository;
+import dk.clbo.repository.NotesRepository;
 import dk.clbo.repository.RecipeRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class RestRecipeController {
 
     RecipeRepository recipeRepository;
+    NotesRepository notesRepository;
+    IngredientRepository ingredientRepository;
+    CategoryRepository categoryRepository;
+
     // constructor injection
-    public RestRecipeController(RecipeRepository recipeRepository){
+    public RestRecipeController(RecipeRepository recipeRepository,
+                                NotesRepository notesRepository,
+                                IngredientRepository ingredientRepository,
+                                CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
+        this.notesRepository = notesRepository;
+        this.ingredientRepository = ingredientRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     // HTTP Get
@@ -38,15 +55,39 @@ public class RestRecipeController {
 
     // HTTP Post, ie. create
     @CrossOrigin(origins = "*", exposedHeaders = "Location")
-    @PostMapping("/recipe")
+    @PostMapping(value="/recipe", consumes={"application/json"})
     public ResponseEntity<String> create(@RequestBody Recipe r){
-        Recipe recipe = recipeRepository.save(r);
-        return ResponseEntity.status(201).header("Location", "/post/" + recipe.getId()).body("{'Msg': 'post created'}");
+        Recipe _recipe = new Recipe(r.getDescription(), r.getPrepTime(), r.getCookTime(), r.getServings(), r.getSource(), r.getUrl(), r.getDirections(), r.getXxx());
+        Notes _notes = new Notes(r.getNotes().getDescription(),_recipe);
+        _recipe.setNotes(_notes);
+
+
+        Set<Ingredient> _ingredients = r.getIngredients();
+        for (Ingredient ingredient : _ingredients){
+            ingredient.setRecipe(_recipe);
+            //ingredientRepository.save(ingredient);
+        }
+        _recipe.setIngredients(_ingredients);
+
+/*
+        Set<Category> _categories = r.getCategories();
+        for (Category category : _categories){
+            category.getRecipes().add(_recipe);
+        }
+        _recipe.setCategories(_categories);
+*/
+        //notesRepository.save(_notes);
+        Recipe recipe = recipeRepository.save(_recipe);
+
+        return ResponseEntity.status(201).header("Location", "/recipe/" + r.getId()).body("{'Msg': 'post created'}");
     }
 
     // HTTP PUT, ie. update
     @PutMapping("/recipe")
-    public ResponseEntity<String> update(@RequestBody Recipe r){
+    public ResponseEntity<String> update(@PathVariable("id") Long id, @RequestBody Recipe r){
+        //get recipeById
+        //check og opdater category - fjern og tilføj
+        //save recipe
         recipeRepository.save(r);
         return ResponseEntity.status(204).body("{'msg':'Updated'}");
     }
