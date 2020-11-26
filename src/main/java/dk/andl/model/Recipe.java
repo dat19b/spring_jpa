@@ -16,7 +16,7 @@ public class Recipe {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "recipes_categories",
             joinColumns = {
                     @JoinColumn(name = "recipes_id", referencedColumnName = "id",

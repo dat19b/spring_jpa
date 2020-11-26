@@ -14,6 +14,11 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @GetMapping("/categories")
+    public Iterable<Category> getCategories() {
+        return categoryRepository.findAll();
+    }
+
     @PostMapping("/categories")
     public Category createCategory(/*@Valid*/ @RequestBody Category category) {
         return categoryRepository.save(category);
