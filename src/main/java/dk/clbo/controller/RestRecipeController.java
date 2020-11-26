@@ -1,6 +1,5 @@
 package dk.clbo.controller;
 
-import com.sun.tools.javap.TypeAnnotationWriter;
 import dk.clbo.model.Category;
 import dk.clbo.model.Ingredient;
 import dk.clbo.model.Notes;
